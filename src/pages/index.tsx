@@ -1,14 +1,17 @@
 import { trpc } from "../../utils/trpc";
 
 export default function Home() {
-    const hello = trpc.hello.useQuery({ text: "Robert" });
+    const allUsers = trpc.getAll.useQuery();
 
-    if (!hello.data) {
+    console.log(allUsers?.data);
+
+    if (!allUsers.data) {
         return <div>Loading...</div>;
     }
+
     return (
         <div>
-            <p>{hello.data.greeting}</p>
+            <p></p>
         </div>
     );
 }

@@ -2,17 +2,12 @@ import { z } from "zod";
 import { router, publicProcedure } from "../trpc";
 
 export const appRouter = router({
-    hello: publicProcedure
-        .input(
-            z.object({
-                text: z.string().nullish(),
-            })
-        )
-        .query(({ input }) => {
-            return {
-                greeting: `Hello, ${input?.text ?? "world"}!`,
-            };
-        }),
+    getAll: publicProcedure.query(async ({ ctx }) => {
+        const users = await ctx.prisma.user.findMany();
+        return {
+            users: users,
+        };
+    }),
 });
 
 export type AppRouter = typeof appRouter;
