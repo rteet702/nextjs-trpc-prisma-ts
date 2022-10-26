@@ -49,6 +49,22 @@ export const appRouter = router({
                 user,
             };
         }),
+    deleteUser: publicProcedure
+        .input(
+            z.object({
+                id: z.string(),
+            })
+        )
+        .mutation(async ({ input, ctx }) => {
+            await ctx.prisma.user.delete({
+                where: {
+                    id: input.id,
+                },
+            });
+            return {
+                message: "User deleted",
+            };
+        }),
 });
 
 export type AppRouter = typeof appRouter;
