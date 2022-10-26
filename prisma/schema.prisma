@@ -13,13 +13,10 @@ model User {
     lastName String
     email String @unique
     password String
-    messages Message[]
 }
 
 model Message {
     id String @id @default(auto()) @map("_id") @db.ObjectId
     content String
-    author User @relation(fields: [authorId], references: [id])
-    authorId String
 }
 
